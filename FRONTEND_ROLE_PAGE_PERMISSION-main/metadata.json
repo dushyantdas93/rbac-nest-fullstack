@@ -1,0 +1,5 @@
+{
+  "name": "CRM RBAC System",
+  "description": "A scalable Role-Based Access Control (RBAC) system for a CRM dashboard with granular permissions.",
+  "requestFramePermissions": []
+}

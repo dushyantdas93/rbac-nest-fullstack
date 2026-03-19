@@ -1,0 +1,23 @@
+import { Module } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './schemas/user.schema';
+import { JwtModule } from '@nestjs/jwt';
+import { RbacModule } from 'src/rbac/rbac.module';
+
+@Module({
+  imports: [
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+    ]),
+     JwtModule.register({
+      secret: 'SUPER_SECRET_KEY',
+      signOptions: { expiresIn: '1h' },
+     }),
+     RbacModule
+  ],
+  controllers: [AuthController],
+  providers: [AuthService],
+})
+export class AuthModule {}

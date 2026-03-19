@@ -1,0 +1,56 @@
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { CreateAuthDto } from './dto/create-auth.dto';
+import { UpdateAuthDto } from './dto/update-auth.dto';
+import { assignRoleDto } from './dto/assingRole.dto';
+import { LoginDto } from './dto/login.dto';
+import { RbacGateway } from 'src/rbac/rbac.gateway';
+
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService, private rbacGateway: RbacGateway) {}
+
+  @Post()
+  create(@Body() createAuthDto: CreateAuthDto) {
+    return this.authService.create(createAuthDto);
+  }
+
+  @Post("login")
+  login(@Body() dto: LoginDto) {
+    return this.authService.login(dto);
+  }
+
+
+   @Put("assignrole")
+  assignRole(@Body() assignRoleDto: assignRoleDto) {
+    return this.authService.assignRole(assignRoleDto);
+  }
+
+  @Get("getUserWithPermissions")
+  getUserWithPermissions(@Body() dto:{id:string}) {
+    return this.authService.getUserWithPermissions(dto);
+  }
+
+
+  
+
+  @Get()
+  findAll() {
+    return this.authService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.authService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
+    return this.authService.update(+id, updateAuthDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.authService.remove(+id);
+  }
+}
