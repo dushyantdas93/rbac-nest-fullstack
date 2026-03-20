@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schemas/user.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { RbacModule } from 'src/rbac/rbac.module';
+import { PermissionModule } from 'src/permission/permission.module';
 
 @Module({
   imports: [
@@ -15,7 +16,9 @@ import { RbacModule } from 'src/rbac/rbac.module';
       secret: 'SUPER_SECRET_KEY',
       signOptions: { expiresIn: '1h' },
      }),
-     RbacModule
+     RbacModule,
+      PermissionModule, // 🔥 yaha import karo
+     
   ],
   controllers: [AuthController],
   providers: [AuthService],

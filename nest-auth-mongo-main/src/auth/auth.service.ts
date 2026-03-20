@@ -8,13 +8,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { assignRoleDto } from './dto/assingRole.dto';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
+import { PermissionService } from 'src/permission/permission.service';
 
 @Injectable()
 export class AuthService {
  constructor(
     @InjectModel(User.name)
    private userModel: Model<UserDocument>,
-   private jwtService: JwtService
+   private jwtService: JwtService,
+    private readonly permissionService: PermissionService, // 🔥 inject
  ) { }
   
   async validateUser(dto:LoginDto) {
@@ -29,17 +31,24 @@ export class AuthService {
 
   async login(dto:LoginDto){
     const user = await this.validateUser(dto);
+    const permission = await this.permissionService.getPermissionsByRole(user?.roles?.[0].toString())
+
 
     const payload = { sub: user._id, email: user.email };
 
     return {
       access_token: this.jwtService.sign(payload),
       expires_in: '1h',
-      user
+     user: {
+    ...user.toObject(), // mongoose document ko plain object banao
+    permissions: permission,
+  },
+      
     };
   }
 
   async create(dto: CreateAuthDto): Promise<User> {
+
     const exists = await this.userModel.findOne({ email: dto.email });
 
     if (exists) {

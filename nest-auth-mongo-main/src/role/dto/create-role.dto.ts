@@ -5,6 +5,6 @@ export class CreateRoleDto {
       @IsNotEmpty()
       name: string;
 
-      permissionIds:string[]
+      description:string;
     
     }

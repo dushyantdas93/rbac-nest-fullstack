@@ -14,7 +14,29 @@ export class PermissionService {
     ) {}
 
   async create(dto: CreatePermissionDto) {
+
+    // return dto
   return this.permissionModel.create(dto);
+}
+
+async getPermissionsByRole(roleId: string) {
+
+  const permissions = await this.permissionModel
+    .find({ role: roleId }).populate('module');
+
+  const result: Record<string, any> = {};
+
+
+  permissions.forEach((p: any) => {
+    result[p.module.name] = {
+      create: p.create,
+      read: p.read,
+      update: p.update,
+      delete: p.delete,
+    };
+  });
+
+  return result;
 }
 
   findAll() {

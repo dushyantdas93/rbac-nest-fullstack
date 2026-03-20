@@ -14,25 +14,30 @@ export class RoleService {
       ) {}
 
  async create(dto: CreateRoleDto) {
-  return this.roleModel.create({
-    name:dto.name,
-    permissions: dto.permissionIds,
-  });
+  return this.roleModel.create(dto);
 }
 
+
+
   findAll() {
-    return `This action returns all role`;
+    return this.roleModel.find();
   }
 
   findOne(id: number) {
     return `This action returns a #${id} role`;
   }
 
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return `This action updates a #${id} role`;
+  async update(id: string, updateRoleDto: UpdateRoleDto) {
+return this.roleModel.findByIdAndUpdate(id,updateRoleDto);
+
+
+
+     
   }
 
   remove(id: number) {
     return `This action removes a #${id} role`;
   }
+
+
 }

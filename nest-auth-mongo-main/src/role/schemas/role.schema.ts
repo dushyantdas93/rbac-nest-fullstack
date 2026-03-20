@@ -9,8 +9,8 @@ export class Role {
   @Prop({ unique: true })
   name: string; // admin, user
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Permission' }] })
-  permissions: Types.ObjectId[];
+  @Prop()
+  description: string;
 }
 
 export const RoleSchema = SchemaFactory.createForClass(Role);

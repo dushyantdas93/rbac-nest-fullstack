@@ -35,7 +35,7 @@ const getPermissionsForRole = (role: Role): Permission => {
       };
     case 'ADMIN':
       return {
-            settings: AcessfullCRUD,
+        settings: AcessfullCRUD,
         sales_stage: fullCRUD,
         tags: fullCRUD,
         escalation: fullCRUD,

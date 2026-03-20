@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PermissionModule } from './permission/permission.module';
 import { RoleModule } from './role/role.module';
 import { RbacModule } from './rbac/rbac.module';
+import { ModuleModule } from './module/module.module';
+import { UserPermissionModule } from './user-permission/user-permission.module';
 
 
 @Module({
@@ -14,7 +16,9 @@ import { RbacModule } from './rbac/rbac.module';
     AuthModule,
     PermissionModule,
     RoleModule,
-    RbacModule],
+    RbacModule,
+    ModuleModule,
+    UserPermissionModule],
   controllers: [AppController],
   providers: [AppService],
 })
