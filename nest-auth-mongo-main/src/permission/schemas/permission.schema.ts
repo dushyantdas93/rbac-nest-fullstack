@@ -11,9 +11,14 @@ export class Permission {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true })
   role: mongoose.Types.ObjectId;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: ModuleEntity.name, required: true })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: ModuleEntity.name,
+    required: true,
+  })
   module: mongoose.Types.ObjectId;
 
+  @Prop({ default: false }) access: boolean;
   @Prop({ default: false }) create: boolean;
   @Prop({ default: false }) read: boolean;
   @Prop({ default: false }) update: boolean;

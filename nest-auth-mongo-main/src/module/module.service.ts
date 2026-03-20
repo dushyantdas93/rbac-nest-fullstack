@@ -5,22 +5,19 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ModuleDocument, ModuleEntity } from './entities/module.entity';
 
-
-
 @Injectable()
 export class ModuleService {
-   constructor(
-      @InjectModel(ModuleEntity.name)
-     private moduleModel: Model<ModuleDocument>,
-   ) { }
+  constructor(
+    @InjectModel(ModuleEntity.name)
+    private moduleModel: Model<ModuleDocument>,
+  ) {}
 
   create(createModuleDto: CreateModuleDto) {
     return this.moduleModel.create(createModuleDto);
-
   }
 
   findAll() {
-    return `This action returns all module`;
+    return this.moduleModel.find();
   }
 
   findOne(id: number) {
